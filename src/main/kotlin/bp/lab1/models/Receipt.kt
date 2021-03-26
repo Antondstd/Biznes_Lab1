@@ -1,13 +1,12 @@
 package bp.lab1.models
 
 
-import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "BL_CHECK")
-class Check {
+class Receipt { //Receipt maybe???
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +18,10 @@ class Check {
     var order: Order? = null
 
     @Column(name = "status")
-    var status: Boolean = false
+    var isPayed: Boolean = false
 
-    @Column(name = "cr_time")
+    @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     lateinit var created_time: Date
 
-}
-
-interface CheckRepository : JpaRepository<Check, Long> {
-    fun findByOrder_User_Id(id: Long): List<Check>
 }

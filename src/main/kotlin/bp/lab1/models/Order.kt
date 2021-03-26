@@ -1,7 +1,6 @@
 package bp.lab1.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 import javax.persistence.*
 
@@ -15,7 +14,7 @@ class Order {
 
     @JsonIgnore
     @OneToOne(mappedBy = "order")
-    var check: Check? = null
+    var receipt: Receipt? = null
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
@@ -32,31 +31,26 @@ class Order {
 
 
     @Column(name = "status")
-    var status: StatusOrder = StatusOrder.Created
+    var status: StatusOrder = StatusOrder.CREATED
 
-    @Column(name = "cr_time")
+    @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     lateinit var created_time: Date
 
+    @JsonIgnore
     @OneToOne(mappedBy = "order")
     var notify: Notify? = null
 
 }
 
 enum class StatusOrder {
-    Created,
-    InWork,
-    Accepted,
-    AwaitsPayment,
-    Payed,
-    Delivering,
-    Received,
-    Cancelled,
-    Spam,
-}
-
-interface OrderRepository : JpaRepository<Order, Long> {
-    fun findByCheckId(id: Long): Order
-    fun findByItem_Company_Id(id: Long): List<Order>
-    fun findByUser_Id(id: Long): List<Order>
+    CREATED,
+    INWORK,
+    ACCEPTED,
+    AWAITSPAYMENT,
+    PAYED,
+    DELIVERING,
+    RECEIVED,
+    CANCELLED,
+    SPAM
 }

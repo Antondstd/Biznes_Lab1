@@ -1,2 +1,0 @@
-# Biznes_Lab1
- 

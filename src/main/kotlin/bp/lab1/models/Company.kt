@@ -1,7 +1,6 @@
 package bp.lab1.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.springframework.data.jpa.repository.JpaRepository
 import javax.persistence.*
 
 @Entity
@@ -25,12 +24,5 @@ class Company {
     @JsonIgnore
     @OneToMany(mappedBy = "company")
     lateinit var items: Set<Item>
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "company")
-//    lateinit var orders:Set<Order>
 
-}
-
-interface CompanyRepository : JpaRepository<Company, Long> {
-    fun findByUserId(id: Long): Company
 }
